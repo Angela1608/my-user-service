@@ -1,20 +1,12 @@
 package user.service.controller;
 
-import user.service.model.User;
-import user.service.service.impl.UserServiceImpl;
-import user.service.service.mapper.UserDtoMapper;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 import user.service.dto.request.UserRequestDto;
 import user.service.dto.response.UserResponseDto;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import user.service.model.User;
+import user.service.service.UserService;
+import user.service.service.mapper.UserDtoMapper;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -24,10 +16,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final UserDtoMapper mapper;
 
-    public UserController(UserServiceImpl userService, UserDtoMapper mapper) {
+    public UserController(UserService userService, UserDtoMapper mapper) {
         this.userService = userService;
         this.mapper = mapper;
     }

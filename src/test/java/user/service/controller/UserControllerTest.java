@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,12 +45,17 @@ class UserControllerTest {
         User user = new User();
         user.setId(32L);
         user.setFirstName("Bob");
+        user.setLastName("Bee");
+        user.setEmail("bob@gmail.com");
+        user.setAddress("Kyiv");
         user.setBirthDate(LocalDate.of(1990, 12, 8));
-        List<User> mockUsers = List.of(user);
+
+        List<User> mockUsers = new ArrayList<>();
+        mockUsers.add(user);
+
         Mockito.when(userService.findAllByBirthDateBetween(from, to)).thenReturn(mockUsers);
 
-        RestAssuredMockMvc
-                .given()
+        RestAssuredMockMvc.given()
                 .queryParam("from", from)
                 .queryParam("to", to)
                 .when()
@@ -58,6 +64,9 @@ class UserControllerTest {
                 .body("size()", Matchers.equalTo(1))
                 .body("[0]id", Matchers.equalTo(32))
                 .body("[0]firstName", Matchers.equalTo("Bob"))
+                .body("[0]secondName", Matchers.equalTo("Bee"))
+                .body("[0]address", Matchers.equalTo("Kyiv"))
+                .body("[0]email", Matchers.equalTo("bob@gmail.com"))
                 .body("[0]birthDate", Matchers.equalTo(LocalDate.of(1990, 12, 8)));
 
     }
@@ -191,8 +200,8 @@ class UserControllerTest {
 
     @Test
     public void shouldDeleteUserById() throws Exception {
-        Mockito.when(userService.deleteById((31L))).thenReturn("SUCCESS");
-        mockMvc.perform(MockMvcRequestBuilders.delete("/users", 31L))
+        Mockito.when(userService.deleteById((32L))).thenReturn("SUCCESS");
+        mockMvc.perform(MockMvcRequestBuilders.delete("/{id}", 32L))
                 .andExpect(status().isOk());
     }
 }
