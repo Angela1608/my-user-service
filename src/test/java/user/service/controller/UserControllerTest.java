@@ -1,8 +1,5 @@
 package user.service.controller;
 
-import user.service.model.User;
-import user.service.service.UserService;
-import user.service.dto.request.UserRequestDto;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.hamcrest.Matchers;
@@ -17,11 +14,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
+import user.service.dto.request.UserRequestDto;
+import user.service.model.User;
+import user.service.service.UserService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
