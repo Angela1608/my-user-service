@@ -1,4 +1,4 @@
-package clear.solutions.userapp.validation;
+package user.service.validation;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

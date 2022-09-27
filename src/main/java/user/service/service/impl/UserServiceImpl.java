@@ -1,10 +1,11 @@
-package clear.solutions.userapp.service.impl;
+package user.service.service.impl;
 
-import clear.solutions.userapp.model.User;
-import clear.solutions.userapp.repository.UserRepository;
-import clear.solutions.userapp.service.UserService;
+import user.service.model.User;
+import user.service.repository.UserRepository;
+import user.service.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;

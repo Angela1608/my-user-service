@@ -1,8 +1,8 @@
-package clear.solutions.userapp.controller;
+package user.service.controller;
 
-import clear.solutions.userapp.dto.request.UserRequestDto;
-import clear.solutions.userapp.model.User;
-import clear.solutions.userapp.service.UserService;
+import user.service.model.User;
+import user.service.service.UserService;
+import user.service.dto.request.UserRequestDto;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.hamcrest.Matchers;

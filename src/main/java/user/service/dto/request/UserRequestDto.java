@@ -1,7 +1,8 @@
-package clear.solutions.userapp.dto.request;
+package user.service.dto.request;
 
-import clear.solutions.userapp.validation.Email;
+import user.service.validation.Email;
 import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;

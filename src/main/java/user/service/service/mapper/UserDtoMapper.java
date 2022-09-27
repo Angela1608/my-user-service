@@ -1,8 +1,8 @@
-package clear.solutions.userapp.service.mapper;
+package user.service.service.mapper;
 
-import clear.solutions.userapp.dto.request.UserRequestDto;
-import clear.solutions.userapp.dto.response.UserResponseDto;
-import clear.solutions.userapp.model.User;
+import user.service.model.User;
+import user.service.dto.request.UserRequestDto;
+import user.service.dto.response.UserResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component

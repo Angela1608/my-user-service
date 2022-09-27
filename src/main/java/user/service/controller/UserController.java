@@ -1,10 +1,10 @@
-package clear.solutions.userapp.controller;
+package user.service.controller;
 
-import clear.solutions.userapp.dto.request.UserRequestDto;
-import clear.solutions.userapp.dto.response.UserResponseDto;
-import clear.solutions.userapp.model.User;
-import clear.solutions.userapp.service.impl.UserServiceImpl;
-import clear.solutions.userapp.service.mapper.UserDtoMapper;
+import user.service.model.User;
+import user.service.service.impl.UserServiceImpl;
+import user.service.service.mapper.UserDtoMapper;
+import user.service.dto.request.UserRequestDto;
+import user.service.dto.response.UserResponseDto;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;

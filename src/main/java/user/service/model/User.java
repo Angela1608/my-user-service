@@ -1,4 +1,4 @@
-package clear.solutions.userapp.model;
+package user.service.model;
 
 import lombok.Data;
 

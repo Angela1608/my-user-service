@@ -1,4 +1,4 @@
-package clear.solutions.userapp.dto.response;
+package user.service.dto.response;
 
 import java.time.LocalDate;
 import lombok.Data;

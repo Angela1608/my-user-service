@@ -1,6 +1,7 @@
-package clear.solutions.userapp.service;
+package user.service.service;
 
-import clear.solutions.userapp.model.User;
+import user.service.model.User;
+
 import java.time.LocalDate;
 import java.util.List;
 

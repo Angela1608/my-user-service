@@ -1,4 +1,4 @@
-package clear.solutions.userapp.validation;
+package user.service.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
