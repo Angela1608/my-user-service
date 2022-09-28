@@ -1,11 +1,8 @@
 package user.service.controller;
 
 import java.time.LocalDate;
-import java.util.List;
-
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import io.restassured.path.json.JsonPath;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import user.service.dto.request.UserRequestDto;
 import user.service.model.User;
 import user.service.service.UserService;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -122,53 +118,6 @@ class UserControllerTest {
                 .body("address", Matchers.equalTo("Kyiv"))
                 .body("email", Matchers.equalTo("alice@gmail.com"))
                 .body("birthDate", Matchers.equalTo("1988-12-10"));
-    }
-
-    @Test
-    public void shouldReturnAllUsersWithDateBirthBetweenTwoValues() {
-        LocalDate from = LocalDate.of(1940, 10, 30);
-        LocalDate to = LocalDate.of(2004, 10, 30);
-
-        User alice = new User();
-        alice.setId(3L);
-        alice.setFirstName("Alice");
-        alice.setLastName("Bee");
-        alice.setAddress("Kyiv");
-        alice.setEmail("alice2@gmail.com");
-        alice.setBirthDate(LocalDate.of(1988, 12, 10));
-
-        User bob = new User();
-        bob.setId(4L);
-        bob.setFirstName("Bob");
-        bob.setLastName("Bee");
-        bob.setAddress("Kyiv");
-        bob.setEmail("bob@gmail.com");
-        bob.setBirthDate(LocalDate.of(1980, 10, 10));
-
-        List<User> mockUsers = List.of(alice, bob);
-
-        Mockito.when(userService.findAllByBirthDateBetween(from, to)).thenReturn(mockUsers);
-
-        RestAssuredMockMvc
-                .given()
-                .queryParam("from", from)
-                .queryParam("to", to)
-                .when()
-                .get("/users/by-birthdate")
-                .then()
-                .body("size()", Matchers.equalTo(2))
-                .body("[0]id", Matchers.equalTo(3))
-                .body("[0]firstName", Matchers.equalTo("Alice"))
-                .body("[0]lastName", Matchers.equalTo("Bee"))
-                .body("[0]address", Matchers.equalTo("Kyiv"))
-                .body("[0]email", Matchers.equalTo("alice2@gmail.com"))
-                .body("[0]birthDate", Matchers.equalTo("1988-12-10"))
-                .body("[1]id", Matchers.equalTo(4))
-                .body("[1]firstName", Matchers.equalTo("Bob"))
-                .body("[1]lastName", Matchers.equalTo("Bee"))
-                .body("[1]address", Matchers.equalTo("Kyiv"))
-                .body("[1]email", Matchers.equalTo("bob@gmail.com"))
-                .body("[1]birthDate", Matchers.equalTo("1980-10-10"));
     }
 
     @Test
