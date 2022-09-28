@@ -1,13 +1,12 @@
 package user.service.dto.request;
 
-import user.service.validation.Email;
-import lombok.Data;
-
+import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import lombok.Data;
+import user.service.validation.Email;
 
 @Data
 public class UserRequestDto {
