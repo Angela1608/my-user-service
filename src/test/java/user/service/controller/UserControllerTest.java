@@ -37,47 +37,16 @@ class UserControllerTest {
         RestAssuredMockMvc.mockMvc(mockMvc);
     }
 
-    @Test
-    public void shouldReturnAllUsersWithDateBirthBetweenTwoValues() {
-        LocalDate from = LocalDate.of(1940, 10, 30);
-        LocalDate to = LocalDate.of(2004, 10, 30);
-
-        User user = new User();
-        user.setId(1L);
-        user.setFirstName("Alice");
-        user.setLastName("Bee");
-        user.setAddress("Kyiv");
-        user.setEmail("alice@gmail.com");
-        user.setBirthDate(LocalDate.of(1888, 12, 10));
-
-        List<User> mockUsers = List.of(user);
-
-        Mockito.when(userService.findAllByBirthDateBetween(from, to)).thenReturn(mockUsers);
-
-        RestAssuredMockMvc.given()
-                .queryParam("from", from)
-                .queryParam("to", to)
-                .when()
-                .get("/users")
-                .then()
-                .body("size()", Matchers.equalTo(1))
-                .body("[0]id", Matchers.equalTo(32))
-                .body("[0]firstName", Matchers.equalTo("Bob"))
-                .body("[0]lastName", Matchers.equalTo("Bee"))
-                .body("[0]address", Matchers.equalTo("Kyiv"))
-                .body("[0]email", Matchers.equalTo("alice@gmail.com"))
-                .body("[0]birthDate", Matchers.equalTo(LocalDate.of(1990, 12, 8)));
-
-    }
 
     @Test
     public void shouldCreateUser() {
-        User userToSave = new User();
-        userToSave.setFirstName("Alice");
-        userToSave.setLastName("Bee");
-        userToSave.setAddress("Kyiv");
-        userToSave.setEmail("alice@gmail.com");
-        userToSave.setBirthDate(LocalDate.ofEpochDay(1975-10-14));
+        User userToCreate = new User();
+        userToCreate.setId(1L);
+        userToCreate.setFirstName("Alice");
+        userToCreate.setLastName("Bee");
+        userToCreate.setAddress("Kyiv");
+        userToCreate.setEmail("alice@gmail.com");
+        userToCreate.setBirthDate(LocalDate.of(1988, 12, 10));
 
         User user = new User();
         user.setId(1L);
@@ -85,23 +54,23 @@ class UserControllerTest {
         user.setLastName("Bee");
         user.setAddress("Kyiv");
         user.setEmail("alice@gmail.com");
-        user.setBirthDate(LocalDate.ofEpochDay(1975-10-14));
+        user.setBirthDate(LocalDate.of(1988, 12, 10));
 
-        Mockito.when(userService.save(userToSave)).thenReturn(user);
+        Mockito.when(userService.save(userToCreate)).thenReturn(user);
 
         UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setFirstName(userToSave.getFirstName());
-        userRequestDto.setLastName(userToSave.getLastName());
-        userRequestDto.setAddress(userToSave.getAddress());
-        userRequestDto.setEmail(userToSave.getEmail());
-        userRequestDto.setBirthDate(userToSave.getBirthDate());
+        userRequestDto.setFirstName(userToCreate.getFirstName());
+        userRequestDto.setLastName(userToCreate.getLastName());
+        userRequestDto.setEmail(userToCreate.getEmail());
+        userRequestDto.setAddress(userToCreate.getAddress());
+        userRequestDto.setBirthDate(userToCreate.getBirthDate());
 
         RestAssuredMockMvc
                 .given()
                 .contentType(ContentType.JSON)
                 .body(userRequestDto)
                 .when()
-                .post("/users")
+                .post("/users", user.getId(), userRequestDto)
                 .then()
                 .statusCode(200)
                 .body("id", Matchers.equalTo(1))
@@ -109,7 +78,7 @@ class UserControllerTest {
                 .body("lastName", Matchers.equalTo("Bee"))
                 .body("address", Matchers.equalTo("Kyiv"))
                 .body("email", Matchers.equalTo("alice@gmail.com"))
-                .body("birthDate", Matchers.equalTo(LocalDate.ofEpochDay(1975-10-14)));
+                .body("birthDate", Matchers.equalTo("1988-12-10"));
     }
 
     @Test
@@ -144,7 +113,7 @@ class UserControllerTest {
                 .contentType(ContentType.JSON)
                 .body(userRequestDto)
                 .when()
-                .put("users/{id}",user.getId(),userRequestDto)
+                .put("users/{id}", user.getId(), userRequestDto)
                 .then()
                 .statusCode(200)
                 .body("id", Matchers.equalTo(1))
@@ -152,56 +121,56 @@ class UserControllerTest {
                 .body("lastName", Matchers.equalTo("Bee"))
                 .body("address", Matchers.equalTo("Kyiv"))
                 .body("email", Matchers.equalTo("alice@gmail.com"))
-                .body("birthDate", Matchers.equalTo(LocalDate.of(1988, 12, 10)));
+                .body("birthDate", Matchers.equalTo("1988-12-10"));
 
     }
 
     @Test
-    public void shouldUpdateAddress() {
-        User userToSave = new User();
-        userToSave.setFirstName("Alice");
-        userToSave.setLastName("Bee");
-        userToSave.setAddress("Kyiv");
-        userToSave.setEmail("alice@gmail.com");
-        userToSave.setBirthDate(LocalDate.of(1888, 12, 10));
+    public void shouldReturnAllUsersWithDateBirthBetweenTwoValues() {
+        LocalDate from = LocalDate.of(1940, 10, 30);
+        LocalDate to = LocalDate.of(2004, 10, 30);
 
         User user = new User();
-        user.setId(32L);
+        user.setId(1L);
         user.setFirstName("Alice");
         user.setLastName("Bee");
-        userToSave.setAddress("Kyiv");
+        user.setAddress("Kyiv");
         user.setEmail("alice@gmail.com");
-        user.setBirthDate(LocalDate.of(1888, 12, 10));
+        user.setBirthDate(LocalDate.of(1988,12,10));
 
-        Mockito.when(userService.save(userToSave)).thenReturn(user);
+        List<User> mockUsers = List.of(user);
 
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setFirstName(userToSave.getFirstName());
-        userRequestDto.setLastName(userToSave.getLastName());
-        userRequestDto.setEmail(userToSave.getEmail());
-        userRequestDto.setAddress(userToSave.getAddress());
-        userRequestDto.setBirthDate(userToSave.getBirthDate());
+        Mockito.when(userService.findAllByBirthDateBetween(from, to)).thenReturn(mockUsers);
 
         RestAssuredMockMvc
                 .given()
-                .contentType(ContentType.JSON)
-                .body(userRequestDto)
+                .queryParam("from", from)
+                .queryParam("to", to)
                 .when()
-                .put("users/{id}/address")
+                .get("/users/by-birthdate")
                 .then()
-                .statusCode(200)
-                .body("id", Matchers.equalTo(32))
-                .body("firstName", Matchers.equalTo("Alice"))
-                .body("lastName", Matchers.equalTo("Bee"))
-                .body("address", Matchers.equalTo("Kyiv"))
-                .body("email", Matchers.equalTo("alice@gmail.com"))
-                .body("birthDate", Matchers.equalTo(LocalDate.of(1888, 12, 10)));
+                .body("size()", Matchers.equalTo(1))
+                .body("[0]id", Matchers.equalTo(1))
+                .body("[0]firstName", Matchers.equalTo("Alice"))
+                .body("[0]lastName", Matchers.equalTo("Bee"))
+                .body("[0]address", Matchers.equalTo("Kyiv"))
+                .body("[0]email", Matchers.equalTo("alice@gmail.com"))
+                .body("[0]birthDate", Matchers.equalTo("1988-12-10"));
+
     }
+
 
     @Test
     public void shouldDeleteUserById() throws Exception {
+        User userToDelete = new User();
+        userToDelete.setId(1L);
+        userToDelete.setFirstName("Alice");
+        userToDelete.setLastName("Bee");
+        userToDelete.setAddress("Kyiv");
+        userToDelete.setEmail("alice@gmail.com");
+        userToDelete.setBirthDate(LocalDate.of(1988, 12, 10));
         Mockito.when(userService.deleteById((32L))).thenReturn("SUCCESS");
-        mockMvc.perform(MockMvcRequestBuilders.delete("users/{id}", 32L))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", userToDelete.getId(), userToDelete))
                 .andExpect(status().isOk());
     }
 }

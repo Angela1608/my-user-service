@@ -1,7 +1,7 @@
 package user.service.dto.response;
 
-import java.time.LocalDate;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Data
 public class UserResponseDto {
