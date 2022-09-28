@@ -13,6 +13,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+
+
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -47,10 +51,10 @@ public class UserController {
         return mapper.toDto(userService.save(user));
     }
 
-    @GetMapping
-    public List<UserResponseDto> findAllByBirthDateBetween(@RequestParam  @DateTimeFormat(pattern = "dd.MM.yyyy")
-                                                                       LocalDate from,
-                                                           @RequestParam  @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @GetMapping("/by-birthdate")
+    public List<UserResponseDto> findAllByBirthDateBetween(@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
+                                                                   LocalDate from,
+                                                           @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
                                                                    LocalDate to) {
         return userService
                 .findAllByBirthDateBetween(from, to)
