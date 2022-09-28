@@ -1,14 +1,13 @@
 package user.service.service.impl;
 
-import user.service.model.User;
-import user.service.repository.UserRepository;
-import user.service.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import user.service.model.User;
+import user.service.repository.UserRepository;
+import user.service.service.UserService;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -41,8 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteById(Long id) {
-
-        userRepository.findById(id);
+        userRepository.deleteById(id);
         return "SUCCESS";
     }
 }

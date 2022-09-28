@@ -1,9 +1,9 @@
 package user.service.service.mapper;
 
-import user.service.model.User;
+import org.springframework.stereotype.Component;
 import user.service.dto.request.UserRequestDto;
 import user.service.dto.response.UserResponseDto;
-import org.springframework.stereotype.Component;
+import user.service.model.User;
 
 @Component
 public class UserDtoMapper {

@@ -1,21 +1,24 @@
 package user.service.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import user.service.dto.request.UserRequestDto;
 import user.service.dto.response.UserResponseDto;
 import user.service.model.User;
 import user.service.service.UserService;
 import user.service.service.mapper.UserDtoMapper;
-
-import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-
-
-
-
 
 @RestController
 @RequestMapping("/users")
@@ -52,10 +55,11 @@ public class UserController {
     }
 
     @GetMapping("/by-birthdate")
-    public List<UserResponseDto> findAllByBirthDateBetween(@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
-                                                                   LocalDate from,
-                                                           @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
-                                                                   LocalDate to) {
+    public List<UserResponseDto> findAllByBirthDateBetween(
+            @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
+                    LocalDate from,
+            @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy")
+                    LocalDate to) {
         return userService
                 .findAllByBirthDateBetween(from, to)
                 .stream()
@@ -65,7 +69,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public String deleteById(@PathVariable Long id) {
-
         userService.deleteById(id);
         return "The user is deleted";
     }

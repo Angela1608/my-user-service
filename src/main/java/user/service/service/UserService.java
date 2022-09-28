@@ -1,12 +1,11 @@
 package user.service.service;
 
-import user.service.model.User;
-
 import java.time.LocalDate;
 import java.util.List;
+import user.service.model.User;
 
 public interface UserService {
-    User save(User User);
+    User save(User user);
 
     User getById(Long id);
 
